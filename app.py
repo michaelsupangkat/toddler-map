@@ -1,14 +1,22 @@
+import os
 from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 from elasticsearch import Elasticsearch
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
-# Elasticsearch setup
+# Load credentials from environment
+CLOUD_ID = os.environ.get("ELASTIC_CLOUD_ID")
+ELASTIC_USER = os.environ.get("ELASTIC_USERNAME")
+ELASTIC_PASS = os.environ.get("ELASTIC_PASSWORD")
+
 es = Elasticsearch(
-    cloud_id="Demo_Cluster:YXAtc291dGhlYXN0LTIuYXdzLmZvdW5kLmlvOjQ0MyQxNzhiODE1NGZjNjc0MDQ5YTEwMGZhMWM1N2E4M2YyNCRlM2UzOWI2YTcyNDI0OGI2ODEwMzRjMjNjOTZlNmRiNQ==",
-    basic_auth=("resume_search", "resumesearch")
+    cloud_id=CLOUD_ID,
+    basic_auth=(ELASTIC_USER, ELASTIC_PASS)
 )
 
 # Serve index.html when accessing "/"

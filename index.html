@@ -62,7 +62,7 @@
     <select id="locationType">
       <option value="nursing_rooms">Nursing Rooms</option>
       <option value="free_indoor_play_areas">Free Indoor Play Areas</option>
-      <option value="paid_toddler_playgrounds">Indoor Playground - Pay </option>
+      <option value="paid_toddler_playgrounds">Indoor Playground - Pay</option>
       <!-- Add more types here -->
     </select>
     <button id="loadBtn">Load Locations</button>
@@ -129,7 +129,7 @@
       statusEl.textContent = 'Loading...';
 
       try {
-        const response = await fetch(`http://localhost:5003/locations?type=${type}`);
+        const response = await fetch(`/locations?type=${type}`);  // <--- Changed here to relative URL
         if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
         const geojson = await response.json();
         statusEl.textContent = `Loaded ${geojson.features.length} locations.`;
